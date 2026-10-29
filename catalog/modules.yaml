@@ -1,0 +1,26 @@
+apiVersion: platform.example/v1
+kind: ModuleCatalog
+modules:
+  - id: aws.s3
+    name: Secure S3 bucket
+    source: aldo2510/terraform-aws-modules//modules/s3
+    version: main
+    description: Private S3 bucket with public access blocked, encryption at rest, ownership controls, and versioning enabled by default.
+    required:
+      - bucket_name
+    optional:
+      versioning_enabled:
+        type: boolean
+        default: true
+      tags:
+        type: map(string)
+        default: {}
+    security:
+      public_access: blocked
+      encryption: AES256
+      versioning_default: enabled
+    allowed_environments:
+      - dev
+      - test
+      - staging
+      - prod
